@@ -1,4 +1,4 @@
-package com.example.smoketracker.presentation.navigation
+package com.smoketracker.presentation.screen
 
 sealed class Screen(val route: String) {
     object VolumeScreen : Screen("volume_screen")

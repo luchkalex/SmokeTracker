@@ -36,7 +36,7 @@ private fun VolumeContent(
             ) {
                 Icon(
                     Icons.Filled.Add,
-                    contentDescription = "Localized description",
+                    contentDescription = "Confirm",
                 )
             }
         },

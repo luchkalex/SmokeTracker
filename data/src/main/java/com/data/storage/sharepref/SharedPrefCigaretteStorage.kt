@@ -7,7 +7,7 @@ import com.data.storage.CigaretteStorage
 private const val CIGARETTE_SHARED_PREFERENCES = "cigarette_shared_pref"
 private const val CIGARETTE_VOLUME = "cigarette_volume"
 
-class SharePrefStorage(
+class SharePrefCigaretteStorage(
     context: Context
 ) : CigaretteStorage {
 

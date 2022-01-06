@@ -3,7 +3,7 @@ package com.smoketracker.di
 import android.content.Context
 import com.data.repositories.CigaretteRepositoryImpl
 import com.data.storage.CigaretteStorage
-import com.data.storage.sharepref.SharePrefStorage
+import com.data.storage.sharepref.SharePrefCigaretteStorage
 import com.domain.repositories.CigaretteRepository
 import dagger.Module
 import dagger.Provides
@@ -25,6 +25,6 @@ class DataModule {
     @Provides
     @Singleton
     fun provideCigaretteStorage(@ApplicationContext context: Context): CigaretteStorage {
-        return SharePrefStorage(context = context)
+        return SharePrefCigaretteStorage(context = context)
     }
 }
