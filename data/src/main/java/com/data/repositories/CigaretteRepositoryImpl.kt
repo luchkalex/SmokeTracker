@@ -13,4 +13,8 @@ class CigaretteRepositoryImpl(private val cigaretteStorage: CigaretteStorage) :
     override fun getVolume(): Int {
         return cigaretteStorage.getVolume()
     }
+
+    override fun savePrice(price: Int): Boolean {
+        return cigaretteStorage.savePrice(price)
+    }
 }

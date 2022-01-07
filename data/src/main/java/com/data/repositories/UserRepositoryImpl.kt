@@ -14,4 +14,8 @@ class UserRepositoryImpl(private val userStorage: UserStorage) :
     override fun getType(): CalculationType {
         return CalculationType.toCalculationType(userStorage.getType())
     }
+
+    override fun saveEPD(EPD: Int): Boolean {
+        return userStorage.saveEPD(EPD)
+    }
 }
