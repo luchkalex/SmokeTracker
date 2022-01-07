@@ -9,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class VolumeViewModel @Inject constructor(
     private val saveVolumeUsecase: SaveVolumeUsecase,
     private val getVolumeUsecase: GetVolumeUsecase
     ) : ViewModel() {
