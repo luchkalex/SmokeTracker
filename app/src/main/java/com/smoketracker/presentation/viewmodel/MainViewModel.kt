@@ -13,6 +13,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private const val MILLS_IN_DAY = 57600000
+private const val MINUTES_IN_DAY = 960
+
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getUserUsecase: GetUserUsecase,
@@ -39,6 +42,9 @@ class MainViewModel @Inject constructor(
 
     private val _paused = MutableLiveData<Boolean>()
     val paused: LiveData<Boolean> = _paused
+
+    private val _updatingPeriod = MutableLiveData<Double>()
+    val updatingPeriod: LiveData<Double> = _updatingPeriod
 
     private lateinit var user: User
     private lateinit var cigarette: Cigarette
@@ -89,7 +95,9 @@ class MainViewModel @Inject constructor(
         _started.value = user.started
         _volumeLeft.value = cigarette.volume - cigarette.smoked
         _paused.value = user.paused
-        updateBalance()
+        _updatingPeriod.value = (MINUTES_IN_DAY.toDouble() / user.PPD.toDouble()).round(2)
+        if (user.started)
+            updateBalance()
         updateDaysLeft()
     }
 
@@ -113,7 +121,7 @@ class MainViewModel @Inject constructor(
     private fun updateBalance(): Boolean {
         val lastUpdated = if (user.paused) user.pausedStartTime else System.currentTimeMillis()
         val currentBalance =
-            (lastUpdated - user.startedTime - user.pausedTime).toDouble() / (57600000 / user.PPD) - cigarette.smoked
+            (lastUpdated - user.startedTime - user.pausedTime).toDouble() / (MILLS_IN_DAY / user.PPD) - cigarette.smoked
         if (currentBalance != balance.value?.toDouble() ?: 0.0) {
             _balance.value = currentBalance.toInt()
             return true

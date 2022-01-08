@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.domain.model.CalculationType
+import com.smoketracker.presentation.ui.AppExtendedFloatingActionButton
 import com.smoketracker.presentation.viewmodel.TypeViewModel
 
 @Composable
@@ -46,26 +47,18 @@ private fun TypeContent(
         ) {
             Text(text = "Chose the type of calculation your daily quantity of puffs")
             Spacer(modifier = Modifier.padding(15.dp))
-            ExtendedFloatingActionButton(
+            AppExtendedFloatingActionButton(
                 onClick = { onClick(CalculationType.PPD) },
-                icon = {
-                    Icon(
-                        Icons.Filled.Favorite,
-                        contentDescription = "Puffs per day"
-                    )
-                },
-                text = { Text(text = "Puffs per day") }
+                icon = Icons.Filled.Favorite,
+                contentDescription = "Puffs per day",
+                text = "Puffs per day"
             )
             Spacer(modifier = Modifier.padding(15.dp))
-            ExtendedFloatingActionButton(
+            AppExtendedFloatingActionButton(
                 onClick = { onClick(CalculationType.EPD) },
-                icon = {
-                    Icon(
-                        Icons.Filled.ShoppingCart,
-                        contentDescription = "Expenses per day"
-                    )
-                },
-                text = { Text(text = "Expenses per day") }
+                icon = Icons.Filled.ShoppingCart,
+                contentDescription = "Expenses per day",
+                text = "Expenses per day"
             )
         }
     }

@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.smoketracker.presentation.ui.AppExtendedFloatingActionButton
+import com.smoketracker.presentation.ui.AppFloatingActionButton
 import com.smoketracker.presentation.viewmodel.MainViewModel
 
 @Composable
@@ -28,6 +30,7 @@ fun MainScreen(navController: NavController, vm: MainViewModel = hiltViewModel()
     val daysLeft by vm.daysLeft.observeAsState(0.0)
     val balance by vm.balance.observeAsState(0)
     val paused by vm.paused.observeAsState(false)
+    val updatingPeriod by vm.updatingPeriod.observeAsState(0.0)
 
     MainContent(
         started = started,
@@ -44,6 +47,7 @@ fun MainScreen(navController: NavController, vm: MainViewModel = hiltViewModel()
         onPauseButtonClick = { if (paused) vm.continueSmoking() else vm.pause() },
         pauseButtonIcon = if (paused) Icons.Filled.PlayArrow else Icons.Outlined.Clear,
         pauseButtonText = if (paused) "Continue" else "Pause",
+        updatingPeriod = updatingPeriod
     )
 }
 
@@ -59,18 +63,16 @@ private fun MainContent(
     onResetButtonClick: () -> Unit,
     onMainButtonClick: () -> Unit,
     onPauseButtonClick: () -> Unit,
-    started: Boolean
+    started: Boolean,
+    updatingPeriod: Double
 ) {
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(
+            AppFloatingActionButton(
                 onClick = onResetButtonClick,
-            ) {
-                Icon(
-                    Icons.Filled.Delete,
-                    contentDescription = "Reset",
-                )
-            }
+                contentDescription = "Reset",
+                icon = Icons.Filled.Delete
+            )
         },
     ) {
         //Select
@@ -85,29 +87,23 @@ private fun MainContent(
             Spacer(modifier = Modifier.padding(15.dp))
             Text(text = "Time left $daysLeft")
             Spacer(modifier = Modifier.padding(15.dp))
+            Text(text = "Updating period $updatingPeriod minutes")
+            Spacer(modifier = Modifier.padding(15.dp))
             Text(text = "$balance", style = TextStyle(fontSize = 30.sp))
             Spacer(modifier = Modifier.padding(15.dp))
-            ExtendedFloatingActionButton(
+            AppExtendedFloatingActionButton(
                 onClick = onMainButtonClick,
-                icon = {
-                    Icon(
-                        mainButtonIcon,
-                        contentDescription = mainButtonText
-                    )
-                },
-                text = { Text(text = mainButtonText) }
+                icon = mainButtonIcon,
+                text = mainButtonText,
+                contentDescription = mainButtonText
             )
-            if (started){
+            if (started) {
                 Spacer(modifier = Modifier.padding(15.dp))
-                ExtendedFloatingActionButton(
+                AppExtendedFloatingActionButton(
                     onClick = onPauseButtonClick,
-                    icon = {
-                        Icon(
-                            pauseButtonIcon,
-                            contentDescription = pauseButtonText
-                        )
-                    },
-                    text = { Text(text = pauseButtonText) }
+                    icon = pauseButtonIcon,
+                    text = pauseButtonText,
+                    contentDescription = pauseButtonText
                 )
             }
 

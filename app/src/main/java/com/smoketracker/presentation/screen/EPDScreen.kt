@@ -1,10 +1,8 @@
 package com.smoketracker.presentation.screen
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TextField
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
@@ -12,9 +10,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.smoketracker.presentation.ui.AppFloatingActionButton
 import com.smoketracker.presentation.viewmodel.EPDViewModel
 
 @Composable
@@ -50,14 +50,11 @@ private fun EPDContent(
 ) {
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(
+            AppFloatingActionButton(
                 onClick = onClick,
-            ) {
-                Icon(
-                    Icons.Filled.ArrowForward,
-                    contentDescription = "Confirm",
-                )
-            }
+                icon = Icons.Filled.ArrowForward,
+                contentDescription = "Confirm"
+            )
         },
     ) {
         Column(
@@ -76,13 +73,17 @@ private fun EPDContent(
                 TextField(
                     value = price,
                     onValueChange = onPriceValueChanged,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text(text = "Price of device") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
                 Spacer(modifier = Modifier.padding(15.dp))
                 TextField(
                     value = EPD,
                     onValueChange = onEPDValueChanged,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text(text = "Expenses per day")},
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
             }
         }
