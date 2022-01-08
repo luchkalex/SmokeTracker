@@ -26,7 +26,7 @@ fun EPDScreen(navController: NavController, vm: EPDViewModel = hiltViewModel()) 
     EPDContent(
         onClick = {
             vm.saveExpenseData()
-            //Move next screen
+            navController.navigate(Screen.MainScreen.route)
         },
         onEPDValueChanged = {
             vm.updateEPD(it)

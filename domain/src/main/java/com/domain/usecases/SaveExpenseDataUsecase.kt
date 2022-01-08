@@ -2,6 +2,7 @@ package com.domain.usecases
 
 import com.domain.repositories.CigaretteRepository
 import com.domain.repositories.UserRepository
+import kotlin.math.roundToInt
 
 class SaveExpenseDataUsecase(
     private val userRepository: UserRepository,
@@ -9,6 +10,10 @@ class SaveExpenseDataUsecase(
 ) {
 
     fun execute(EPD: Int, price: Int): Boolean {
-        return (userRepository.saveEPD(EPD) && cigaretteRepository.savePrice(price))
+        val volume = cigaretteRepository.getVolume()
+        val PPD = (volume.toDouble() / (price.toDouble() / EPD.toDouble())).roundToInt()
+        return (userRepository.saveEPD(EPD) &&
+                userRepository.savePPD(PPD) &&
+                cigaretteRepository.savePrice(price))
     }
 }
