@@ -41,6 +41,11 @@ class DomainModule {
     }
 
     @Provides
+    fun provideSavePPDUsecase(userRepository: UserRepository): SavePPDUsecase {
+        return SavePPDUsecase(userRepository)
+    }
+
+    @Provides
     fun provideGetCigaretteUsecase(
         cigaretteRepository: CigaretteRepository
     ): GetCigaretteUsecase {

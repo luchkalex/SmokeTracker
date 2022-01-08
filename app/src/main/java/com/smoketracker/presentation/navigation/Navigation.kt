@@ -22,5 +22,8 @@ fun Navigation() {
         composable(route = Screen.MainScreen.route) {
             MainScreen(navController)
         }
+        composable(route = Screen.PPDScreen.route) {
+            PPDScreen(navController)
+        }
     }
 }

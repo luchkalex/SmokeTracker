@@ -25,7 +25,7 @@ fun TypeScreen(navController: NavController, vm: TypeViewModel = hiltViewModel()
                     navController.navigate(Screen.EPDScreen.route)
                 }
                 CalculationType.PPD -> {
-
+                    navController.navigate(Screen.PPDScreen.route)
                 }
             }
         },
