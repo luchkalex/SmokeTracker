@@ -16,4 +16,5 @@ interface UserRepository {
     fun clearData(): Boolean
     fun pauseSmoking(time: Long): Boolean
     fun continueSmoking(time: Long): Boolean
+    fun sleep(time: Int): Boolean
 }

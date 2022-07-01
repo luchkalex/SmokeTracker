@@ -49,7 +49,7 @@ class MainViewModel @Inject constructor(
     private lateinit var user: User
     private lateinit var cigarette: Cigarette
 
-    init {
+    fun init(){
         getData()
         if (user.started) startUpdatingBalance()
     }

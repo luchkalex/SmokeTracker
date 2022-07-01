@@ -95,4 +95,9 @@ class DomainModule {
     fun provideContinueSmokingUsecase(userRepository: UserRepository): ContinueSmokingUsecase {
         return ContinueSmokingUsecase(userRepository)
     }
+
+    @Provides
+    fun provideSaveSleepUsecase(userRepository: UserRepository): SaveSleepTimeUsecase {
+        return SaveSleepTimeUsecase(userRepository)
+    }
 }

@@ -7,7 +7,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -18,39 +17,28 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.smoketracker.presentation.ui.AppExtendedFloatingActionButton
 import com.smoketracker.presentation.ui.AppFloatingActionButton
-import com.smoketracker.presentation.viewmodel.VolumeViewModel
+import com.smoketracker.presentation.viewmodel.SleepViewModel
 
 @Composable
-fun VolumeScreen(navController: NavController, vm: VolumeViewModel = hiltViewModel()) {
+fun SleepScreen(navController: NavController, vm: SleepViewModel = hiltViewModel()) {
 
-    val volume by vm.volume.observeAsState("")
-//    val started by vm.started.observeAsState(false)
+    val sleepTime by vm.sleepTime.observeAsState("")
 
-    LaunchedEffect(key1 = Unit) {
-        vm.getSmokingStatus {
-            navController.navigate(Screen.MainScreen.route)
-        }
-    }
-
-    VolumeContent(
-//        started = started,
-        text = volume,
+    SleepContent(
+        text = sleepTime,
         onClick = {
-            vm.saveVolume(volume)
-            navController.navigate(Screen.TypeScreen.route)
+            vm.saveSleepTime(sleepTime)
+            navController.popBackStack()
         },
-        onValueChange = { vm.updateVolume(it) },
-//        onWelcomePageClick = { navController.navigate(Screen.MainScreen.route) }
+        onValueChange = { vm.updateSleepTime(it) },
     )
 }
 
 @Composable
-private fun VolumeContent(
+private fun SleepContent(
     text: String,
     onValueChange: (String) -> Unit,
     onClick: () -> Unit,
-//    started: Boolean,
-//    onWelcomePageClick: () -> Unit
 ) {
     Scaffold(
         floatingActionButton = {
@@ -71,28 +59,8 @@ private fun VolumeContent(
                 value = text,
                 onValueChange = onValueChange,
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text(text = "Volume of device") },
+                label = { Text(text = "Slept time (minutes)") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-            )
-        }
-    }
-}
-
-@Composable
-private fun WelcomePage(onClick: () -> Unit) {
-    Scaffold {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxHeight()
-                .fillMaxWidth()
-        ) {
-            AppExtendedFloatingActionButton(
-                onClick = onClick,
-                icon = Icons.Filled.AccountBox,
-                text = "Welcome",
-                contentDescription = "Welcome"
             )
         }
     }

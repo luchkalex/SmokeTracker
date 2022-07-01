@@ -28,8 +28,11 @@ class VolumeViewModel @Inject constructor(
         _volume.value = volume
     }
 
-    fun getSmokingStatus() {
+    fun getSmokingStatus(onStarted: ()->Unit) {
         _started.value = getSmokingStatusUsecase.execute()
+        if (_started.value == true){
+            onStarted()
+        }
     }
 
 }

@@ -5,6 +5,7 @@ import com.data.repositories.CigaretteRepositoryImpl
 import com.data.repositories.UserRepositoryImpl
 import com.data.storage.CigaretteStorage
 import com.data.storage.UserStorage
+import com.data.storage.sharepref.DBCigaretteStorage
 import com.data.storage.sharepref.SharePrefCigaretteStorage
 import com.data.storage.sharepref.SharedPrefUserStorage
 import com.domain.model.User
@@ -23,14 +24,11 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideCigaretteRepository(cigaretteStorage: CigaretteStorage): CigaretteRepository {
-        return CigaretteRepositoryImpl(cigaretteStorage)
-    }
-
-    @Provides
-    @Singleton
-    fun provideCigaretteStorage(@ApplicationContext context: Context): CigaretteStorage {
-        return SharePrefCigaretteStorage(context = context)
+    fun provideCigaretteRepository(@ApplicationContext context: Context): CigaretteRepository {
+        return CigaretteRepositoryImpl(
+            DBCigaretteStorage(context = context),
+            SharePrefCigaretteStorage(context = context)
+        )
     }
 
     @Provides

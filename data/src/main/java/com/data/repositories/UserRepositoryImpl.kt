@@ -78,4 +78,8 @@ class UserRepositoryImpl(private val userStorage: UserStorage) :
                 ) &&
                 userStorage.savePausedStartTime(0))
     }
+
+    override fun sleep(time: Int): Boolean {
+        return userStorage.savePausedTime(userStorage.getPausedTime() + time.toLong() * 60000)
+    }
 }

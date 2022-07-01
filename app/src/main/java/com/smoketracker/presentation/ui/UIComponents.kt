@@ -42,6 +42,6 @@ fun AppExtendedFloatingActionButton(
             )
         },
         text = { Text(text = text) },
-        backgroundColor = Primary
+        backgroundColor = Accent
     )
 }

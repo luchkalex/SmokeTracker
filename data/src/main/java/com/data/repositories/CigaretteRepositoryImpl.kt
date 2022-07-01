@@ -4,7 +4,10 @@ import com.data.storage.CigaretteStorage
 import com.domain.model.Cigarette
 import com.domain.repositories.CigaretteRepository
 
-class CigaretteRepositoryImpl(private val cigaretteStorage: CigaretteStorage) :
+class CigaretteRepositoryImpl(
+    private val cigaretteStorage: CigaretteStorage,
+    private val localCigaretteStorage: CigaretteStorage,
+    ) :
     CigaretteRepository {
 
     override fun saveVolume(volume: Int): Boolean {

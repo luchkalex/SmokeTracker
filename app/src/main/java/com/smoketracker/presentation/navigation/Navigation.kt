@@ -25,5 +25,8 @@ fun Navigation() {
         composable(route = Screen.PPDScreen.route) {
             PPDScreen(navController)
         }
+        composable(route = Screen.SleepScreen.route) {
+            SleepScreen(navController)
+        }
     }
 }
